@@ -25,7 +25,11 @@ let velocityx=-2;
 
 //bird-dynamics
 let velocityup=0;
-let gravitydown=0.4;
+// let gravitydown=0.4;
+function isMobile() {
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+let gravitydown = isMobile() ? 0.3 : 0.4;
 
 //game-over
 let gameover=false;
@@ -319,14 +323,9 @@ function placepipe(){
 }
 
 function move(e){
-    if(e.code=="ArrowUp"||e.type == "touchstart"){
-        // birdy=birdy+velocityup;
-        // velocityup=-6;
-        velocityup = e.type === "touchstart" ? -8 : -6;
-        wingsound.play();
-        lastJumpTime = currentTime;
-    }
-    if((e.code=="Space"||e.type == "touchstart") && gameover){
+    const isTouch = e.type === "touchstart";
+    const isSpaceKey = e.code === "Space";
+    if ((isTouch || isSpaceKey) && gameover) {
         bird.y=birdy;
         gameover=false;
         pipearray=[];
@@ -344,6 +343,13 @@ function move(e){
         invsibility=generateLCGNumbersInIncreasingOrder(10, 1, 100);
         movepipe=generateLCGNumbersInIncreasingOrder(50, 1, 100);
         growshrink=generateLCGNumbersInIncreasingOrder(20, 1, 100);
+    }
+    if(!gameover && (isTouch || e.code === "ArrowUp")){
+        // birdy=birdy+velocityup;
+        // velocityup=-6;
+        velocityup = e.type === "touchstart" ? -8 : -6;
+        wingsound.play();
+        lastJumpTime = currentTime;
     }
 }
 
