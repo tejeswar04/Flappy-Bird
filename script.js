@@ -25,7 +25,7 @@ let velocityx=-2;
 
 //bird-dynamics
 let velocityup=0;
-let gravitydown=0.4;
+let gravitydown=0.25;
 
 //game-over
 let gameover=false;
@@ -63,6 +63,7 @@ let invis=false;
 let tempsc=0;
 let growsc=0;
 let shrinksc=0;
+let lastTime = 0;
 
 let shrink=false;
 let grow=false;
@@ -136,7 +137,7 @@ function update(){
         return;
     }
     context.clearRect(0,0,board.width,board.height);
-    velocityup+=gravitydown;
+    velocityup += gravitydown;
     bird.y+=velocityup;
     bird.y=Math.max(bird.y,0);
     if(!grow&&!shrink&&growshrink.includes(score)){
@@ -318,10 +319,6 @@ function placepipe(){
 }
 
 function move(e){
-    const currentTime = Date.now();
-    if (currentTime - lastJumpTime < JUMP_COOLDOWN) {
-        return;
-    }
     if(e.code=="ArrowUp"||e.type == "touchstart"){
         // birdy=birdy+velocityup;
         velocityup=-6;
