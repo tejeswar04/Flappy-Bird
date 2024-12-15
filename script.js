@@ -111,6 +111,7 @@ window.onload=function(){
     requestAnimationFrame(update);
     setInterval(placepipe,1500);
     document.addEventListener("keydown",move);
+    board.addEventListener("touchstart", move);
 }
 
 function generateLCGNumbersInIncreasingOrder(size, min, max, a = 1664525, c = 1013904223, m = 2 ** 32) {
@@ -314,12 +315,12 @@ function placepipe(){
 }
 
 function move(e){
-    if(e.code=="ArrowUp"){
+    if(e.code=="ArrowUp"||e.type == "touchstart"){
         // birdy=birdy+velocityup;
         velocityup=-6;
         wingsound.play();
     }
-    if(e.code=="Space" && gameover){
+    if((e.code=="Space"||e.type == "touchstart") && gameover){
         bird.y=birdy;
         gameover=false;
         pipearray=[];
