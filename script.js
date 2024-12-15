@@ -45,6 +45,9 @@ let spikebottomimg;
 let shieldbg;
 let invsibilityimg;
 
+let lastJumpTime =0;
+const JUMP_COOLDOWN = 200;
+
 let bird = {
     x: birdx,
     y: birdy,
@@ -315,10 +318,15 @@ function placepipe(){
 }
 
 function move(e){
+    const currentTime = Date.now();
+    if (currentTime - lastJumpTime < JUMP_COOLDOWN) {
+        return;
+    }
     if(e.code=="ArrowUp"||e.type == "touchstart"){
         // birdy=birdy+velocityup;
         velocityup=-6;
         wingsound.play();
+        lastJumpTime = currentTime;
     }
     if((e.code=="Space"||e.type == "touchstart") && gameover){
         bird.y=birdy;
