@@ -29,7 +29,7 @@ let velocityup=0;
 function isMobile() {
     return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
-let gravitydown = isMobile() ? 0.3 : 0.4;
+let gravitydown = isMobile() ? 0.2 : 0.4;
 
 //game-over
 let gameover=false;
@@ -346,8 +346,8 @@ function move(e){
     }
     if(!gameover && (isTouch || e.code === "ArrowUp")){
         // birdy=birdy+velocityup;
-        // velocityup=-6;
-        velocityup = e.type === "touchstart" ? -8 : -6;
+        velocityup=-6;
+        // velocityup = e.type === "touchstart" ? -8 : -6;
         wingsound.play();
         lastJumpTime = currentTime;
     }
