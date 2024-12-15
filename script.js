@@ -25,7 +25,7 @@ let velocityx=-2;
 
 //bird-dynamics
 let velocityup=0;
-let gravitydown=0.25;
+let gravitydown=0.4;
 
 //game-over
 let gameover=false;
@@ -131,7 +131,7 @@ function generateLCGNumbersInIncreasingOrder(size, min, max, a = 1664525, c = 10
     return randomNumbers;
 }
 
-function update(){
+function update(currentTime){
     requestAnimationFrame(update);
     if(gameover){
         return;
@@ -321,7 +321,8 @@ function placepipe(){
 function move(e){
     if(e.code=="ArrowUp"||e.type == "touchstart"){
         // birdy=birdy+velocityup;
-        velocityup=-6;
+        // velocityup=-6;
+        velocityup = e.type === "touchstart" ? -8 : -6;
         wingsound.play();
         lastJumpTime = currentTime;
     }
